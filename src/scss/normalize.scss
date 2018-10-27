@@ -20,9 +20,6 @@ html {
    * Remove the margin in all browsers.
    */
 
-body {
-  margin: 0;
-}
 
 /**
    * Correct the font size and margin on `h1` elements within `section` and
@@ -167,7 +164,6 @@ textarea {
 
 button,
 input {
-
   /* 1 */
   overflow: visible;
 }
@@ -179,7 +175,6 @@ input {
 
 button,
 select {
-  
   /* 1 */
   text-transform: none;
 }
@@ -343,3 +338,5 @@ template {
 [hidden] {
   display: none;
 }
+
+

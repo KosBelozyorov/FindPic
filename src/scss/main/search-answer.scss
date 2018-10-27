@@ -1,0 +1,19 @@
+.search-answer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-bottom: 31px;
+
+}
+
+.search-answer__image{
+    background: $background-image-color;
+    width: 209px;
+    height: 122px;
+
+    &:not(:last-child){
+        margin-bottom: 15px;
+    }
+}
+
