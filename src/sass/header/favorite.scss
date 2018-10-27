@@ -1,13 +1,15 @@
 .site-favorite{
     font-family: Roboto;
-    color: $primary-violet-color;
     font-size: 16px;
     font-weight: 400;
     text-align: right;
     transform: scaleX(1.0002);
     margin-top: 34px;
 
-
+    &__link {
+      color: $primary-violet-color;
+      text-decoration: none;
+    }
 }
 .site-favorite:before{
     content: "";
