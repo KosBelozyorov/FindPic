@@ -2,9 +2,9 @@ const refs = {
     form: document.querySelector('.form'),
     loadMoreBtn: document.querySelector('.search-load-more__btn'),
     input: document.querySelector('.search-form__input'),
-    grid: document.querySelector('.search-answer__image'),
+    grid: document.querySelector('.search-answer'),
   };
-  
+
   console.log(refs.form);
   let currentPage = 1;
 let currentQuery = '';
@@ -31,19 +31,19 @@ function imagesRequest(query, page = 1) {
   const url = `https://pixabay.com/api/?key=10502586-9b5f28e8ed93518550ea5da27&q=${query}&per_page=12&page=${page}`;
 
     return axios.get(url)
-    
+
      .then(response => response.data.hits)
-    
+
       .catch(function (error) {
         console.log(error);
-      
+
     });
 }
 
 function createGridItems(items) {
   return items.reduce(
     (markup, item) =>
-    markup + `<div class="grid-item"><img src="${item.webformatURL}" alt=""></div>`,
+    markup + `<div class="search-answer__image"><img src="${item.webformatURL}" alt=""></div>`,
     '',
   );
 
@@ -56,7 +56,7 @@ function handleLoadMoreBtnClick() {
 }
 
 function loadPhotos() {
-    
+
   imagesRequest(currentQuery, currentPage).then(photos => {
     const markup = createGridItems(photos);
     refs.grid.insertAdjacentHTML('beforeend', markup);
