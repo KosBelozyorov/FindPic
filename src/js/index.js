@@ -5,7 +5,7 @@ const refs = {
     grid: document.querySelector('.search-answer'),
   };
 
-  console.log(refs.form);
+  console.log("refs.form: ", refs.form);
   let currentPage = 1;
 let currentQuery = '';
 // https://pixabay.com/api/?key=10502586-9b5f28e8ed93518550ea5da27&q=dog
