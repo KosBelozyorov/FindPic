@@ -4,7 +4,10 @@ var refs = {
   form: document.querySelector('.form'),
   loadMoreBtn: document.querySelector('.search-load-more__btn'),
   input: document.querySelector('.search-form__input'),
-  grid: document.querySelector('.search-answer')
+  grid: document.querySelector('.search-answer'),
+  page: document.querySelector('.page'),
+  pageHeader: document.querySelector('.page-header'),
+  siteLogo: document.querySelector('.site-logo')
 };
 console.log("refs.form: ", refs.form);
 var currentPage = 1;
@@ -17,6 +20,11 @@ refs.loadMoreBtn.addEventListener('click', handleLoadMoreBtnClick); //==========
 function handleFormSubmit(evt) {
   evt.preventDefault();
   currentQuery = refs.input.value;
+  if (currentQuery === '') return;
+  refs.pageHeader.classList.remove('page-header');
+  refs.pageHeader.classList.add('is-active');
+  refs.siteLogo.classList.remove('site-logo');
+  refs.siteLogo.classList.add('is-click');
   currentPage = 1;
   refs.grid.innerHTML = '';
   loadPhotos();
@@ -48,6 +56,7 @@ function loadPhotos() {
   imagesRequest(currentQuery, currentPage).then(function (photos) {
     var markup = createGridItems(photos);
     refs.grid.insertAdjacentHTML('beforeend', markup);
+    refs.page.classList.add('show-btn');
   });
 }
 "use strict";
