@@ -1,8 +1,10 @@
 .search-form__btn{
     @extend %button;
     width: 60px;
+    outline: 0px;
 } 
 .search-load-more__btn{
     @extend %button;
     width: 130px;
+    outline: 0px;
 }

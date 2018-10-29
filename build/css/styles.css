@@ -453,6 +453,24 @@ template {
   border: 2px solid #adafb2;
   padding-left: 15px;
   margin-bottom: 31px;
+  outline: 0px;
+}
+
+.is-active {
+  text-align: center;
+  margin-top: 0px;
+  order: 1;
+}
+
+.is-click {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.site-favorite {
+  order: 2;
 }
 
 .search-answer {
@@ -480,10 +498,12 @@ template {
 
 .search-form__btn {
   width: 60px;
+  outline: 0px;
 }
 
 .search-load-more__btn {
   width: 130px;
+  outline: 0px;
 }
 
 .pop-up {
