@@ -69,10 +69,12 @@ var refsModal = {
   btnSearch: document.querySelector(".search-form__btn"),
   delete: document.querySelector(".js-delete"),
   more: document.querySelector(".js-more"),
+  favorite: document.querySelector('.site-favorite__link'),
   prev: document.querySelector(".js-prev"),
   next: document.querySelector(".js-next"),
   select: document.querySelector(".js-select"),
-  close: document.querySelector(".js-close")
+  close: document.querySelector(".js-close"),
+  grid: document.querySelector('.search-answer')
 };
 
 var popUpClose = function popUpClose() {
@@ -81,7 +83,8 @@ var popUpClose = function popUpClose() {
 
 function popUpOpen(event) {
   event.preventDefault();
-  var target = event.target;
+  var target = event.target; // console.log(refsModal.select);
+
   var popupImageSrc = refsModal.img;
   popupImageSrc.src = target.src;
   console.log("event target: ", target.src); // посмотрите что тут
@@ -90,5 +93,32 @@ function popUpOpen(event) {
   refsModal.page.classList.add('pop-up_active');
 }
 
-refsModal.list.addEventListener('click', popUpOpen);
+refsModal.list.addEventListener('click', popUpOpen, true);
 refsModal.close.addEventListener('click', popUpClose);
+refsModal.list.addEventListener('click', handleBtnClick, true); // ================================
+
+var array = [];
+
+function handleBtnClick(evt) {
+  evt.preventDefault();
+  var value = evt.target.src;
+  array.push(value);
+}
+
+refsModal.favorite.addEventListener('click', handleFavoriteBtnClick);
+refsModal.select.addEventListener('click', handleSelectBtnClick);
+
+function handleSelectBtnClick() {
+  console.log(array);
+  localStorage.setItem('images', JSON.stringify(array));
+}
+
+function handleFavoriteBtnClick() {
+  refsModal.page.classList.remove('show-btn');
+  refsModal.form.reset();
+  var arrayImg = JSON.parse(localStorage.getItem('images'));
+  var elem = arrayImg.reduce(function (markup, img) {
+    return markup + "<div class=\"search-answer__image\"><img src=\"".concat(img, "\" alt=\"\">\n</div>");
+  }, '');
+  refsModal.grid.insertAdjacentHTML('beforeend', elem); // console.log(elem);
+}

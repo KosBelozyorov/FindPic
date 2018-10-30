@@ -425,7 +425,8 @@ template {
 }
 
 .site-favorite:before {
-  content: "";
+  content: "/2605";
+  color: #673ab7;
   display: inline-block;
   background: url(../../images/icon.png) no-repeat;
   width: 14px;

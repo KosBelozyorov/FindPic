@@ -6,24 +6,64 @@ const refsModal = {
   btnSearch: document.querySelector(".search-form__btn"),
   delete: document.querySelector(".js-delete"),
   more: document.querySelector(".js-more"),
-
+  favorite: document.querySelector('.site-favorite__link'),
   prev: document.querySelector(".js-prev"),
   next: document.querySelector(".js-next"),
   select: document.querySelector(".js-select"),
-  close: document.querySelector(".js-close")
+  close: document.querySelector(".js-close"),
+  grid: document.querySelector('.search-answer'),
 };
+
 
 const popUpClose = () => refsModal.page.classList.remove('pop-up_active');
 
 function popUpOpen(event) {
   event.preventDefault();
   const target = event.target;
+  // console.log(refsModal.select);
   const popupImageSrc = refsModal.img;
   popupImageSrc.src = target.src;
   console.log("event target: ", target.src); // посмотрите что тут
   if (target.nodeName !== "IMG") return;
   refsModal.page.classList.add('pop-up_active');
+  
 }
 
-refsModal.list.addEventListener('click', popUpOpen);
+
+refsModal.list.addEventListener('click', popUpOpen,true);
 refsModal.close.addEventListener('click', popUpClose);
+refsModal.list.addEventListener('click', handleBtnClick,true);
+// ================================
+  const array = [];
+  function handleBtnClick(evt) {
+    evt.preventDefault();
+
+    const value = evt.target.src ;
+    array.push(value);
+ 
+}
+
+
+refsModal.favorite.addEventListener('click', handleFavoriteBtnClick);
+refsModal.select.addEventListener('click',  handleSelectBtnClick);
+
+function handleSelectBtnClick() {
+  console.log(array);
+  localStorage.setItem('images', JSON.stringify(array));
+}
+
+function handleFavoriteBtnClick() {
+
+   refsModal.page.classList.remove('show-btn');
+   refsModal.form.reset();
+
+const arrayImg = JSON.parse(localStorage.getItem('images'));
+const elem = arrayImg.reduce((markup, img) => markup + `<div class="search-answer__image"><img src="${img}" alt="">
+</div>`,
+'',);
+refsModal.grid.insertAdjacentHTML('beforeend',elem);
+// console.log(elem);
+}
+
+
+
