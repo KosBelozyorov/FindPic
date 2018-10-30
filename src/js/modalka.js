@@ -12,6 +12,9 @@ const refsModal = {
   select: document.querySelector(".js-select"),
   close: document.querySelector(".js-close"),
   grid: document.querySelector('.search-answer'),
+  pageHeader: document.querySelector('.page-header'),
+  siteLogo: document.querySelector('.site-logo'),
+  
 };
 
 
@@ -54,15 +57,19 @@ function handleSelectBtnClick() {
 
 function handleFavoriteBtnClick() {
 
+  refsModal.grid.innerHTML = '';
    refsModal.page.classList.remove('show-btn');
-   refsModal.form.reset();
+   refsModal.pageHeader.classList.remove('page-header');
+   refsModal.pageHeader.classList.add('is-active');
+   refsModal.siteLogo.classList.remove('site-logo');
+   refsModal.siteLogo.classList.add('is-click');
 
 const arrayImg = JSON.parse(localStorage.getItem('images'));
 const elem = arrayImg.reduce((markup, img) => markup + `<div class="search-answer__image"><img src="${img}" alt="">
 </div>`,
 '',);
 refsModal.grid.insertAdjacentHTML('beforeend',elem);
-// console.log(elem);
+
 }
 
 

@@ -74,7 +74,9 @@ var refsModal = {
   next: document.querySelector(".js-next"),
   select: document.querySelector(".js-select"),
   close: document.querySelector(".js-close"),
-  grid: document.querySelector('.search-answer')
+  grid: document.querySelector('.search-answer'),
+  pageHeader: document.querySelector('.page-header'),
+  siteLogo: document.querySelector('.site-logo')
 };
 
 var popUpClose = function popUpClose() {
@@ -114,11 +116,15 @@ function handleSelectBtnClick() {
 }
 
 function handleFavoriteBtnClick() {
+  refsModal.grid.innerHTML = '';
   refsModal.page.classList.remove('show-btn');
-  refsModal.form.reset();
+  refsModal.pageHeader.classList.remove('page-header');
+  refsModal.pageHeader.classList.add('is-active');
+  refsModal.siteLogo.classList.remove('site-logo');
+  refsModal.siteLogo.classList.add('is-click');
   var arrayImg = JSON.parse(localStorage.getItem('images'));
   var elem = arrayImg.reduce(function (markup, img) {
     return markup + "<div class=\"search-answer__image\"><img src=\"".concat(img, "\" alt=\"\">\n</div>");
   }, '');
-  refsModal.grid.insertAdjacentHTML('beforeend', elem); // console.log(elem);
+  refsModal.grid.insertAdjacentHTML('beforeend', elem);
 }
