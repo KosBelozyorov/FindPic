@@ -11,10 +11,9 @@
     }
 }
 .site-favorite:before{
-    content: "/2605";
-    color:$primary-violet-color;
+    content: "\2605";
+    color: $primary-violet-color;
     display: inline-block;
-    background: url(../../images/icon.png) no-repeat;
     width: 14px;
     height: 14px;
     margin-right: 20px;

@@ -124,7 +124,30 @@ function handleFavoriteBtnClick() {
   refsModal.siteLogo.classList.add('is-click');
   var arrayImg = JSON.parse(localStorage.getItem('images'));
   var elem = arrayImg.reduce(function (markup, img) {
-    return markup + "<div class=\"search-answer__image\"><img src=\"".concat(img, "\" alt=\"\">\n</div>");
+    return markup + "<div class=\"search-answer__image\"><img src=\"".concat(img, "\" alt=\"\">\n<button class=\"btn_remove\"></button></div>");
   }, '');
   refsModal.grid.insertAdjacentHTML('beforeend', elem);
+}
+
+refsModal.list.addEventListener('click', handleDeleteImage);
+
+function handleDeleteImage(event) {
+  var nodeName = event.target.nodeName;
+
+  if (nodeName === 'BUTTON') {
+    var parent = event.target.parentNode;
+    parent.remove();
+  }
+
+  ;
+  removeFromLocalStorage();
+}
+
+function removeFromLocalStorage(id) {
+  var imgArr = JSON.parse(localStorage.getItem('images'));
+  var imgToDelete = imgArr.filter(function (el) {
+    return el.url === id;
+  })[0];
+  imgArr.splice(imgArr.indexOf(imgToDelete), 1);
+  localStorage.setItem('images', JSON.stringify(imgArr));
 }

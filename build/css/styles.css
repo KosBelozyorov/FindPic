@@ -425,10 +425,9 @@ template {
 }
 
 .site-favorite:before {
-  content: "/2605";
+  content: "\2605";
   color: #673ab7;
   display: inline-block;
-  background: url(../../images/icon.png) no-repeat;
   width: 14px;
   height: 14px;
   margin-right: 20px;
@@ -486,6 +485,7 @@ template {
   background: #231f20;
   width: 209px;
   height: 122px;
+  position: relative;
 }
 
 .search-answer__image:not(:last-child) {
@@ -495,6 +495,14 @@ template {
 .search-answer__image img {
   max-width: 100%;
   height: 100%;
+}
+
+.btn_remove {
+  background-image: url(../images/close.png);
+  width: 16px;
+  height: 16px;
+  position: absolute;
+  right: 5px;
 }
 
 .search-form__btn {
