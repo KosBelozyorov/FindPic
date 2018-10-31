@@ -615,19 +615,23 @@ body:not(.pop-up_active) .pop-up__img {
   background-image: url("../images/prev.png");
   margin-right: 10px;
   width: 8px;
+  outline: 0px;
 }
 
 .btn_next {
   background-image: url("../images/next.png");
   width: 8px;
+  outline: 0px;
 }
 
 .btn_select {
   background-image: url("../images/star.png");
+  outline: 0px;
 }
 
 .btn_close {
   background-image: url("../images/close.png");
+  outline: 0px;
 }
 
 @media (min-width: 768px) {
