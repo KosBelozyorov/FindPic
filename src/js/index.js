@@ -6,7 +6,7 @@ const refs = {
     page: document.querySelector('.page'),
     pageHeader: document.querySelector('.page-header'),
     siteLogo: document.querySelector('.site-logo'),
-
+    mainPage: document.querySelector('.site-logo__link'),
   };
   
   console.log("refs.form: ", refs.form);
@@ -74,3 +74,8 @@ function loadPhotos() {
   });
 
 }
+
+//=================================================
+refs.mainPage.addEventListener('click', loadMainPage);
+
+const loadMainPage = () => refsModal.page.classList.remove('search-answer');

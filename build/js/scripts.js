@@ -7,7 +7,8 @@ var refs = {
   grid: document.querySelector('.search-answer'),
   page: document.querySelector('.page'),
   pageHeader: document.querySelector('.page-header'),
-  siteLogo: document.querySelector('.site-logo')
+  siteLogo: document.querySelector('.site-logo'),
+  mainPage: document.querySelector('.site-logo__link')
 };
 console.log("refs.form: ", refs.form);
 var currentPage = 1;
@@ -58,7 +59,14 @@ function loadPhotos() {
     refs.grid.insertAdjacentHTML('beforeend', markup);
     refs.page.classList.add('show-btn');
   });
-}
+} //=================================================
+
+
+refs.mainPage.addEventListener('click', loadMainPage);
+
+var loadMainPage = function loadMainPage() {
+  return refsModal.page.classList.remove('search-answer');
+};
 "use strict";
 
 var refsModal = {
