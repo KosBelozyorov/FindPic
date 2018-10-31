@@ -499,10 +499,12 @@ template {
 
 .btn_remove {
   background-image: url(../images/close.png);
-  width: 16px;
-  height: 16px;
+  width: 10px;
+  height: 10px;
   position: absolute;
-  color: #231f20;
+  background-color: transparent;
+  outline: 0;
+  border: 0;
   right: 5px;
   visibility: hidden;
   transition: -webkit-transform .2s linear;
@@ -512,7 +514,6 @@ template {
 
 .search-answer:hover .btn_remove {
   visibility: visible;
-  color: #231f20;
 }
 
 .search-form__btn {

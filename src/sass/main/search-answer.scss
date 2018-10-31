@@ -22,10 +22,12 @@
 
 .btn_remove{
     background-image: url(../images/close.png);
-    width: 16px;
-    height: 16px;
+    width: 10px;
+    height: 10px;
     position: absolute;
-    color: $background-image-color;
+    background-color: transparent;
+    outline: 0;
+    border: 0;
     right: 5px;
     visibility: hidden;
     transition: transform .2s linear;
@@ -33,7 +35,6 @@
 }
 .search-answer:hover .btn_remove {
     visibility: visible;
-    color:$background-image-color;
 }
 
 
