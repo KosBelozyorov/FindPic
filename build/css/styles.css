@@ -502,7 +502,17 @@ template {
   width: 16px;
   height: 16px;
   position: absolute;
+  color: #231f20;
   right: 5px;
+  visibility: hidden;
+  transition: -webkit-transform .2s linear;
+  transition: transform .2s linear;
+  transition: transform .2s linear, -webkit-transform .2s linear;
+}
+
+.search-answer:hover .btn_remove {
+  visibility: visible;
+  color: #231f20;
 }
 
 .search-form__btn {
