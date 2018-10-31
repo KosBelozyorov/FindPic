@@ -52,7 +52,9 @@ refsModal.select.addEventListener('click',  handleSelectBtnClick);
 
 function handleSelectBtnClick() {
   console.log(array);
+
   localStorage.setItem('images', JSON.stringify(array));
+  
 }
 
 function handleFavoriteBtnClick() {
@@ -63,14 +65,25 @@ function handleFavoriteBtnClick() {
    refsModal.pageHeader.classList.add('is-active');
    refsModal.siteLogo.classList.remove('site-logo');
    refsModal.siteLogo.classList.add('is-click');
-
+   
+   const header = `<h2 class="site-favorite__link">Избранное</h2>`;
+   refsModal.grid.insertAdjacentHTML('beforeend',header);
 const arrayImg = JSON.parse(localStorage.getItem('images'));
 const elem = arrayImg.reduce((markup, img) => markup + `<div class="search-answer__image"><img src="${img}" alt="">
 </div>`,
 '',);
 refsModal.grid.insertAdjacentHTML('beforeend',elem);
+// createElem(arrayImg);
 
 }
 
 
+
+// function createElem(arr) {
+//   const elem = arr.reduce((markup, img) => markup + `<h2>Избранное</h2><div class="search-answer__image"><img src="${img}" alt="">
+//   </div>`,
+//   '',);
+//   refsModal.grid.insertAdjacentHTML('beforeend',elem);
+
+// }
 

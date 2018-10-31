@@ -122,9 +122,16 @@ function handleFavoriteBtnClick() {
   refsModal.pageHeader.classList.add('is-active');
   refsModal.siteLogo.classList.remove('site-logo');
   refsModal.siteLogo.classList.add('is-click');
+  var header = "<h2 class=\"site-favorite__link\">\u0418\u0437\u0431\u0440\u0430\u043D\u043D\u043E\u0435</h2>";
+  refsModal.grid.insertAdjacentHTML('beforeend', header);
   var arrayImg = JSON.parse(localStorage.getItem('images'));
   var elem = arrayImg.reduce(function (markup, img) {
     return markup + "<div class=\"search-answer__image\"><img src=\"".concat(img, "\" alt=\"\">\n</div>");
   }, '');
-  refsModal.grid.insertAdjacentHTML('beforeend', elem);
-}
+  refsModal.grid.insertAdjacentHTML('beforeend', elem); // createElem(arrayImg);
+} // function createElem(arr) {
+//   const elem = arr.reduce((markup, img) => markup + `<h2>Избранное</h2><div class="search-answer__image"><img src="${img}" alt="">
+//   </div>`,
+//   '',);
+//   refsModal.grid.insertAdjacentHTML('beforeend',elem);
+// }
