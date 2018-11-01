@@ -14,7 +14,7 @@ const refsModal = {
   grid: document.querySelector('.search-answer'),
   pageHeader: document.querySelector('.page-header'),
   siteLogo: document.querySelector('.site-logo'),
-  
+
 };
 
 
@@ -29,7 +29,7 @@ function popUpOpen(event) {
   console.log("event target: ", target.src); // посмотрите что тут
   if (target.nodeName !== "IMG") return;
   refsModal.page.classList.add('pop-up_active');
-  
+
 }
 
 
@@ -43,7 +43,7 @@ refsModal.list.addEventListener('click', handleBtnClick,true);
 
     const value = evt.target.src ;
     array.push(value);
- 
+
 }
 
 
@@ -52,9 +52,7 @@ refsModal.select.addEventListener('click',  handleSelectBtnClick);
 
 function handleSelectBtnClick() {
   console.log(array);
-
   localStorage.setItem('images', JSON.stringify(array));
-  
 }
 
 function handleFavoriteBtnClick() {
@@ -65,25 +63,35 @@ function handleFavoriteBtnClick() {
    refsModal.pageHeader.classList.add('is-active');
    refsModal.siteLogo.classList.remove('site-logo');
    refsModal.siteLogo.classList.add('is-click');
-   
+
    const header = `<h2 class="site-favorite__link">Избранное</h2>`;
    refsModal.grid.insertAdjacentHTML('beforeend',header);
 const arrayImg = JSON.parse(localStorage.getItem('images'));
 const elem = arrayImg.reduce((markup, img) => markup + `<div class="search-answer__image"><img src="${img}" alt="">
-</div>`,
+<button class="btn_remove"></button></div>`,
 '',);
 refsModal.grid.insertAdjacentHTML('beforeend',elem);
-// createElem(arrayImg);
+}
 
+refsModal.list.addEventListener('click',  handleDeleteImage);
+
+function handleDeleteImage(event){
+  const nodeName = event.target.nodeName;
+
+  if(nodeName === 'BUTTON'){
+    const parent = event.target.parentNode;
+    parent.remove();
+};
+
+removeFromLocalStorage();
+
+}
+function removeFromLocalStorage(id){
+  const imgArr = JSON.parse(localStorage.getItem('images'));
+const imgToDelete = imgArr.filter(el => el.url === id)[0];
+imgArr.splice(imgArr.indexOf(imgToDelete), 1);
+localStorage.setItem('images', JSON.stringify(imgArr));
 }
 
 
-
-// function createElem(arr) {
-//   const elem = arr.reduce((markup, img) => markup + `<h2>Избранное</h2><div class="search-answer__image"><img src="${img}" alt="">
-//   </div>`,
-//   '',);
-//   refsModal.grid.insertAdjacentHTML('beforeend',elem);
-
-// }
 

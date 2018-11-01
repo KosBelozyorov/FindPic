@@ -101,19 +101,26 @@
     -webkit-box-pack: justify;
     -webkit-justify-content: space-between;
         -ms-flex-pack: justify;
-            justify-content: space-between; }
+            justify-content: space-between; 
+    }
   
   .btn_prev {
     background-image: url("../images/prev.png");
     margin-right: 10px;
-    width: 8px; }
+    width: 8px; 
+    outline: 0px;}
   
   .btn_next {
     background-image: url("../images/next.png");
-    width: 8px; }
+    width: 8px;
+    outline: 0px; }
   
   .btn_select {
-    background-image: url("../images/star.png"); }
+    background-image: url("../images/star.png");
+    outline: 0px; }
   
   .btn_close {
-    background-image: url("../images/close.png"); }
+    background-image: url("../images/close.png"); 
+    outline: 0px;}
+
+  
