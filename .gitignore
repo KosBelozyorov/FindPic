@@ -8,6 +8,10 @@ yarn-error.log*
 # build artifacts
 build/
 
+build
+
+.idea/
+
 # Runtime data
 pids
 *.pid

@@ -7,7 +7,8 @@ var refs = {
   grid: document.querySelector('.search-answer'),
   page: document.querySelector('.page'),
   pageHeader: document.querySelector('.page-header'),
-  siteLogo: document.querySelector('.site-logo')
+  siteLogo: document.querySelector('.site-logo'),
+  mainPage: document.querySelector('.site-logo__link')
 };
 console.log("refs.form: ", refs.form);
 var currentPage = 1;
@@ -58,7 +59,14 @@ function loadPhotos() {
     refs.grid.insertAdjacentHTML('beforeend', markup);
     refs.page.classList.add('show-btn');
   });
-}
+} //=================================================
+
+
+refs.mainPage.addEventListener('click', loadMainPage);
+
+var loadMainPage = function loadMainPage() {
+  return refsModal.page.classList.remove('search-answer');
+};
 "use strict";
 
 var refsModal = {
@@ -84,15 +92,47 @@ var popUpClose = function popUpClose() {
 };
 
 function popUpOpen(event) {
-  event.preventDefault();
-  var target = event.target; // console.log(refsModal.select);
-
+  var ls = Array.from(document.querySelectorAll(".search-answer > div > img"));
+  var targetId = ls.indexOf(event.target);
+  var targetImg = ls[targetId];
   var popupImageSrc = refsModal.img;
-  popupImageSrc.src = target.src;
-  console.log("event target: ", target.src); // посмотрите что тут
+  popupImageSrc.src = targetImg.src;
 
-  if (target.nodeName !== "IMG") return;
+  function popUpNext() {
+    var nextTargetId;
+
+    if (targetId >= ls.length - 1) {
+      targetId = 0;
+      nextTargetId = targetId;
+    } else {
+      nextTargetId = targetId + 1;
+    }
+
+    targetId = nextTargetId;
+    var nextTargetImg = ls[targetId];
+    var nextPopupImageSrc = refsModal.img;
+    nextPopupImageSrc.src = nextTargetImg.src;
+  }
+
+  function popUpPrev() {
+    var prevTargetId;
+
+    if (!(targetId <= 0)) {
+      prevTargetId = targetId - 1;
+    } else {
+      targetId = ls.length - 1;
+      prevTargetId = targetId;
+    }
+
+    targetId = prevTargetId;
+    var prevTargetImg = ls[targetId];
+    var prevPopupImageSrc = refsModal.img;
+    prevPopupImageSrc.src = prevTargetImg.src;
+  }
+
   refsModal.page.classList.add('pop-up_active');
+  refsModal.next.addEventListener('click', popUpNext);
+  refsModal.prev.addEventListener('click', popUpPrev);
 }
 
 refsModal.list.addEventListener('click', popUpOpen, true);
@@ -126,12 +166,30 @@ function handleFavoriteBtnClick() {
   refsModal.grid.insertAdjacentHTML('beforeend', header);
   var arrayImg = JSON.parse(localStorage.getItem('images'));
   var elem = arrayImg.reduce(function (markup, img) {
-    return markup + "<div class=\"search-answer__image\"><img src=\"".concat(img, "\" alt=\"\">\n</div>");
+    return markup + "<div class=\"search-answer__image\"><img src=\"".concat(img, "\" alt=\"\">\n<button class=\"btn_remove\"></button></div>");
   }, '');
-  refsModal.grid.insertAdjacentHTML('beforeend', elem); // createElem(arrayImg);
-} // function createElem(arr) {
-//   const elem = arr.reduce((markup, img) => markup + `<h2>Избранное</h2><div class="search-answer__image"><img src="${img}" alt="">
-//   </div>`,
-//   '',);
-//   refsModal.grid.insertAdjacentHTML('beforeend',elem);
-// }
+  refsModal.grid.insertAdjacentHTML('beforeend', elem);
+}
+
+refsModal.list.addEventListener('click', handleDeleteImage);
+
+function handleDeleteImage(event) {
+  var nodeName = event.target.nodeName;
+
+  if (nodeName === 'BUTTON') {
+    var parent = event.target.parentNode;
+    parent.remove();
+  }
+
+  ;
+  removeFromLocalStorage();
+}
+
+function removeFromLocalStorage(id) {
+  var imgArr = JSON.parse(localStorage.getItem('images'));
+  var imgToDelete = imgArr.filter(function (el) {
+    return el.url === id;
+  })[0];
+  imgArr.splice(imgArr.indexOf(imgToDelete), 1);
+  localStorage.setItem('images', JSON.stringify(imgArr));
+}

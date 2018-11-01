@@ -2,7 +2,7 @@
     @extend %button;
     width: 60px;
     outline: 0px;
-} 
+}
 .search-load-more__btn{
     @extend %button;
     width: 130px;
@@ -12,5 +12,5 @@
 
 .page.show-btn .search-load-more__btn {
     display: block;
-    margin: 0 auto;
+    margin: 0 auto 50px;
 }

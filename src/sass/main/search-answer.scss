@@ -3,7 +3,9 @@
     flex-direction: row;
     justify-content: flex-start;
     flex-wrap: wrap;
-    margin-bottom: 31px;
+    margin-bottom: 30px;
+    box-sizing: border-box;
+    padding: 0 22px;
 }
 
 .search-answer__image{
@@ -11,9 +13,8 @@
     width: 209px;
     height: 122px;
     position: relative;
-    &:not(:last-child){
-        margin-bottom: 15px;
-    }
+    margin-bottom: 15px;
+
      &:not(:nth-child(4n)) {
          margin-right: 15px;
      }
@@ -25,12 +26,11 @@
 }
 
 .btn_remove{
-    background-image: url(../images/close.png);
-    width: 10px;
+  width: 10px;
     height: 10px;
     position: absolute;
-    background-color: transparent;
-    outline: 0;
+  background: transparent url(../images/close.png);
+  outline: 0;
     border: 0;
     right: 5px;
     visibility: hidden;
