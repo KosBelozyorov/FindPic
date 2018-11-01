@@ -8,6 +8,10 @@ yarn-error.log*
 # build artifacts
 build/
 
+build
+
+.idea/
+
 # Runtime data
 pids
 *.pid
@@ -59,5 +63,3 @@ typings/
 
 # dotenv environment variables file
 .env
-
-.idea
