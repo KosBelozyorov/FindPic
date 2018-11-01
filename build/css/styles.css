@@ -619,22 +619,26 @@ body:not(.pop-up_active) .pop-up__img {
   margin-right: 10px;
   width: 8px;
   outline: 0px;
+  cursor: pointer;
 }
 
 .btn_next {
   background-image: url("../images/next.png");
   width: 8px;
   outline: 0px;
+  cursor: pointer;
 }
 
 .btn_select {
   background-image: url("../images/star.png");
   outline: 0px;
+  cursor: pointer;
 }
 
 .btn_close {
   background-image: url("../images/close.png");
   outline: 0px;
+  cursor: pointer;
 }
 
 @media (min-width: 768px) {
