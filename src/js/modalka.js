@@ -21,6 +21,7 @@ const popUpClose = () => refsModal.page.classList.remove('pop-up_active');
 
 function popUpOpen(event) {
   const ls = Array.from(document.querySelectorAll(".search-answer > div > img"));
+
   let targetId = ls.indexOf(event.target);
 
   const targetImg = ls[targetId];
