@@ -14,22 +14,50 @@ const refsModal = {
   grid: document.querySelector('.search-answer'),
   pageHeader: document.querySelector('.page-header'),
   siteLogo: document.querySelector('.site-logo'),
-  
 };
 
 
 const popUpClose = () => refsModal.page.classList.remove('pop-up_active');
 
 function popUpOpen(event) {
-  event.preventDefault();
-  const target = event.target;
-  // console.log(refsModal.select);
+  const ls = Array.from(document.querySelectorAll(".search-answer > div > img"));
+  let targetId = ls.indexOf(event.target);
+
+  const targetImg = ls[targetId];
   const popupImageSrc = refsModal.img;
-  popupImageSrc.src = target.src;
-  console.log("event target: ", target.src); // посмотрите что тут
-  if (target.nodeName !== "IMG") return;
+  popupImageSrc.src = targetImg.src;
+
+  function popUpNext() {
+    let nextTargetId;
+    if (targetId >= ls.length - 1) {
+      targetId = 0;
+      nextTargetId = targetId;
+    } else {
+      nextTargetId = targetId + 1;
+    }
+    targetId = nextTargetId;
+    const nextTargetImg = ls[targetId];
+    const nextPopupImageSrc = refsModal.img;
+    nextPopupImageSrc.src = nextTargetImg.src;
+  }
+
+  function popUpPrev() {
+    let prevTargetId;
+    if (!(targetId <= 0)) {
+      prevTargetId = targetId - 1;
+    } else {
+      targetId = ls.length - 1;
+      prevTargetId = targetId;
+    }
+    targetId = prevTargetId;
+    const prevTargetImg = ls[targetId];
+    const prevPopupImageSrc = refsModal.img;
+    prevPopupImageSrc.src = prevTargetImg.src;
+  }
   refsModal.page.classList.add('pop-up_active');
-  
+
+  refsModal.next.addEventListener('click', popUpNext);
+  refsModal.prev.addEventListener('click', popUpPrev);
 }
 
 
@@ -43,7 +71,7 @@ refsModal.list.addEventListener('click', handleBtnClick,true);
 
     const value = evt.target.src ;
     array.push(value);
- 
+
 }
 
 
@@ -58,12 +86,14 @@ function handleSelectBtnClick() {
 function handleFavoriteBtnClick() {
 
   refsModal.grid.innerHTML = '';
-   refsModal.page.classList.remove('show-btn');
-   refsModal.pageHeader.classList.remove('page-header');
-   refsModal.pageHeader.classList.add('is-active');
-   refsModal.siteLogo.classList.remove('site-logo');
-   refsModal.siteLogo.classList.add('is-click');
+  refsModal.page.classList.remove('show-btn');
+  refsModal.pageHeader.classList.remove('page-header');
+  refsModal.pageHeader.classList.add('is-active');
+  refsModal.siteLogo.classList.remove('site-logo');
+  refsModal.siteLogo.classList.add('is-click');
 
+   const header = `<h2 class="site-favorite__link">Избранное</h2>`;
+   refsModal.grid.insertAdjacentHTML('beforeend',header);
 const arrayImg = JSON.parse(localStorage.getItem('images'));
 const elem = arrayImg.reduce((markup, img) => markup + `<div class="search-answer__image"><img src="${img}" alt="">
 <button class="btn_remove"></button></div>`,

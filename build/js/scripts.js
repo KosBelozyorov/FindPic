@@ -92,15 +92,47 @@ var popUpClose = function popUpClose() {
 };
 
 function popUpOpen(event) {
-  event.preventDefault();
-  var target = event.target; // console.log(refsModal.select);
-
+  var ls = Array.from(document.querySelectorAll(".search-answer > div > img"));
+  var targetId = ls.indexOf(event.target);
+  var targetImg = ls[targetId];
   var popupImageSrc = refsModal.img;
-  popupImageSrc.src = target.src;
-  console.log("event target: ", target.src); // посмотрите что тут
+  popupImageSrc.src = targetImg.src;
 
-  if (target.nodeName !== "IMG") return;
+  function popUpNext() {
+    var nextTargetId;
+
+    if (targetId >= ls.length - 1) {
+      targetId = 0;
+      nextTargetId = targetId;
+    } else {
+      nextTargetId = targetId + 1;
+    }
+
+    targetId = nextTargetId;
+    var nextTargetImg = ls[targetId];
+    var nextPopupImageSrc = refsModal.img;
+    nextPopupImageSrc.src = nextTargetImg.src;
+  }
+
+  function popUpPrev() {
+    var prevTargetId;
+
+    if (!(targetId <= 0)) {
+      prevTargetId = targetId - 1;
+    } else {
+      targetId = ls.length - 1;
+      prevTargetId = targetId;
+    }
+
+    targetId = prevTargetId;
+    var prevTargetImg = ls[targetId];
+    var prevPopupImageSrc = refsModal.img;
+    prevPopupImageSrc.src = prevTargetImg.src;
+  }
+
   refsModal.page.classList.add('pop-up_active');
+  refsModal.next.addEventListener('click', popUpNext);
+  refsModal.prev.addEventListener('click', popUpPrev);
 }
 
 refsModal.list.addEventListener('click', popUpOpen, true);
@@ -130,6 +162,8 @@ function handleFavoriteBtnClick() {
   refsModal.pageHeader.classList.add('is-active');
   refsModal.siteLogo.classList.remove('site-logo');
   refsModal.siteLogo.classList.add('is-click');
+  var header = "<h2 class=\"site-favorite__link\">\u0418\u0437\u0431\u0440\u0430\u043D\u043D\u043E\u0435</h2>";
+  refsModal.grid.insertAdjacentHTML('beforeend', header);
   var arrayImg = JSON.parse(localStorage.getItem('images'));
   var elem = arrayImg.reduce(function (markup, img) {
     return markup + "<div class=\"search-answer__image\"><img src=\"".concat(img, "\" alt=\"\">\n<button class=\"btn_remove\"></button></div>");
