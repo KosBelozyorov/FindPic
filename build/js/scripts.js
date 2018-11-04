@@ -84,16 +84,27 @@ var refsModal = {
   close: document.querySelector(".js-close"),
   grid: document.querySelector('.search-answer'),
   pageHeader: document.querySelector('.page-header'),
-  siteLogo: document.querySelector('.site-logo')
+  siteLogo: document.querySelector('.site-logo'),
+  popUp: document.querySelector('.pop-up')
 };
 
-var popUpClose = function popUpClose() {
-  return refsModal.page.classList.remove('pop-up_active');
-};
+function popUpClose(e) {
+  if (e.target == refsModal.popUp || e.target == refsModal.close) {
+    refsModal.page.classList.remove('pop-up_active');
+  }
+}
 
 function popUpOpen(event) {
   var ls = Array.from(document.querySelectorAll(".search-answer > div > img"));
-  var targetId = ls.indexOf(event.target);
+  var nodeName = event.target.nodeName;
+  var targetId;
+
+  if (nodeName === 'DIV') {
+    targetId = ls.indexOf(event.target.firstChild);
+  } else if (nodeName === 'IMG') {
+    targetId = ls.indexOf(event.target);
+  }
+
   var targetImg = ls[targetId];
   var popupImageSrc = refsModal.img;
   popupImageSrc.src = targetImg.src;
@@ -137,6 +148,7 @@ function popUpOpen(event) {
 
 refsModal.list.addEventListener('click', popUpOpen, true);
 refsModal.close.addEventListener('click', popUpClose);
+refsModal.popUp.addEventListener('click', popUpClose);
 refsModal.list.addEventListener('click', handleBtnClick, true); // ================================
 
 var array = [];
@@ -151,7 +163,6 @@ refsModal.favorite.addEventListener('click', handleFavoriteBtnClick);
 refsModal.select.addEventListener('click', handleSelectBtnClick);
 
 function handleSelectBtnClick() {
-  console.log(array);
   localStorage.setItem('images', JSON.stringify(array));
 }
 
@@ -181,7 +192,6 @@ function handleDeleteImage(event) {
     parent.remove();
   }
 
-  ;
   removeFromLocalStorage();
 }
 
