@@ -104,6 +104,7 @@ function popUpOpen(event) {
 
   var targetImg = ls[targetId];
   var popupImageSrc = refsModal.img;
+  if (targetImg === undefined) return;
   popupImageSrc.src = targetImg.src;
 
   function popUpNext() {

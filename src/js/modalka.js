@@ -35,6 +35,7 @@ function popUpOpen(event) {
   }
   const targetImg = ls[targetId];
   const popupImageSrc = refsModal.img;
+  if(targetImg === undefined) return;
   popupImageSrc.src = targetImg.src;
 
   function popUpNext() {
