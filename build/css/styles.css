@@ -520,9 +520,10 @@ template {
   transition: -webkit-transform .2s linear;
   transition: transform .2s linear;
   transition: transform .2s linear, -webkit-transform .2s linear;
+  cursor: pointer;
 }
 
-.search-answer:hover .btn_remove {
+.search-answer__image:hover .btn_remove {
   visibility: visible;
 }
 
