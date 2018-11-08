@@ -14,7 +14,8 @@ const refsModal = {
   grid: document.querySelector('.search-answer'),
   pageHeader: document.querySelector('.page-header'),
   siteLogo: document.querySelector('.site-logo'),
-  popUp: document.querySelector('.pop-up')
+  popUp: document.querySelector('.pop-up'),
+  imgToDelete: document.querySelector('.search-answer__img > img')
 };
 
 
@@ -34,6 +35,7 @@ function popUpOpen(event) {
     targetId = ls.indexOf(event.target);
   }
   const targetImg = ls[targetId];
+  
   const popupImageSrc = refsModal.img;
   if(targetImg === undefined) return;
   popupImageSrc.src = targetImg.src;
@@ -77,17 +79,25 @@ refsModal.popUp.addEventListener('click', popUpClose);
 refsModal.list.addEventListener('click', handleBtnClick,true);
 // ================================
 const array = [];
-function handleBtnClick(evt) {
-  evt.preventDefault();
 
-  const value = evt.target.src ;
+function handleBtnClick(event) {
+  event.preventDefault();
+
+  const value = event.target.src ;
+  console.log('value: ', value);
   array.push(value);
+
+  console.log('array: ', array);
 }
 
 refsModal.favorite.addEventListener('click', handleFavoriteBtnClick);
 refsModal.select.addEventListener('click',  handleSelectBtnClick);
 
-function handleSelectBtnClick() {
+function handleSelectBtnClick(event) {
+  event.preventDefault();
+
+  console.log('nodeName: ', nodeName);
+  
   localStorage.setItem('images', JSON.stringify(array));
 }
 
@@ -109,22 +119,33 @@ function handleFavoriteBtnClick() {
   refsModal.grid.insertAdjacentHTML('beforeend',elem);
 }
 
+//==== Измененная часть=========================
+
 refsModal.list.addEventListener('click',  handleDeleteImage);
 
 function handleDeleteImage(event){
   const nodeName = event.target.nodeName;
 
+  console.log('nodeName: ', nodeName);
+
   if(nodeName === 'BUTTON'){
     const parent = event.target.parentNode;
-    parent.remove();
+  
+    console.log('parent: ', parent);
+
+  parent.remove();
   }
-
+  
   removeFromLocalStorage();
-
 }
-function removeFromLocalStorage(id){
+function removeFromLocalStorage(url){
   const imgArr = JSON.parse(localStorage.getItem('images'));
-  const imgToDelete = imgArr.filter(el => el.url === id)[0];
+  
+  const imgToDelete = imgArr.filter(item => item !== url)
+  console.log('valueToDelete: ', imgToDelete);
+  
   imgArr.splice(imgArr.indexOf(imgToDelete), 1);
   localStorage.setItem('images', JSON.stringify(imgArr));
 }
+
+

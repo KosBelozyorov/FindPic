@@ -82,7 +82,8 @@ var refsModal = {
   grid: document.querySelector('.search-answer'),
   pageHeader: document.querySelector('.page-header'),
   siteLogo: document.querySelector('.site-logo'),
-  popUp: document.querySelector('.pop-up')
+  popUp: document.querySelector('.pop-up'),
+  imgToDelete: document.querySelector('.search-answer__img > img')
 };
 
 function popUpClose(e) {
@@ -151,16 +152,20 @@ refsModal.list.addEventListener('click', handleBtnClick, true); // =============
 
 var array = [];
 
-function handleBtnClick(evt) {
-  evt.preventDefault();
-  var value = evt.target.src;
+function handleBtnClick(event) {
+  event.preventDefault();
+  var value = event.target.src;
+  console.log('value: ', value);
   array.push(value);
+  console.log('array: ', array);
 }
 
 refsModal.favorite.addEventListener('click', handleFavoriteBtnClick);
 refsModal.select.addEventListener('click', handleSelectBtnClick);
 
-function handleSelectBtnClick() {
+function handleSelectBtnClick(event) {
+  event.preventDefault();
+  console.log('nodeName: ', nodeName);
   localStorage.setItem('images', JSON.stringify(array));
 }
 
@@ -178,26 +183,30 @@ function handleFavoriteBtnClick() {
     return markup + "<div class=\"search-answer__image\"><img src=\"".concat(img, "\" alt=\"\">\n<button class=\"btn_remove\"></button></div>");
   }, '');
   refsModal.grid.insertAdjacentHTML('beforeend', elem);
-}
+} //==== Измененная часть=========================
+
 
 refsModal.list.addEventListener('click', handleDeleteImage);
 
 function handleDeleteImage(event) {
   var nodeName = event.target.nodeName;
+  console.log('nodeName: ', nodeName);
 
   if (nodeName === 'BUTTON') {
     var parent = event.target.parentNode;
+    console.log('parent: ', parent);
     parent.remove();
   }
 
   removeFromLocalStorage();
 }
 
-function removeFromLocalStorage(id) {
+function removeFromLocalStorage(url) {
   var imgArr = JSON.parse(localStorage.getItem('images'));
-  var imgToDelete = imgArr.filter(function (el) {
-    return el.url === id;
-  })[0];
+  var imgToDelete = imgArr.filter(function (item) {
+    return item !== url;
+  });
+  console.log('valueToDelete: ', imgToDelete);
   imgArr.splice(imgArr.indexOf(imgToDelete), 1);
   localStorage.setItem('images', JSON.stringify(imgArr));
 }
