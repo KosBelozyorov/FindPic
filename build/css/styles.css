@@ -655,6 +655,26 @@ body:not(.pop-up_active) .pop-up__img {
   cursor: pointer;
 }
 
+.add-to-fav {
+  display: none;
+}
+
+.add-to-fav__active {
+  display: block;
+  padding: 10px;
+  background: #ffffffb3;
+  position: absolute;
+  top: 48%;
+  left: 38%;
+  right: 38%;
+  border: 2px solid #673ab7;
+  border-radius: 22px;
+  font-family: 'Roboto', sans-serif;
+  color: #673ab7;
+  font-weight: 700;
+  text-align: center;
+}
+
 @media (min-width: 768px) {
   .search-form__input {
     width: 365px;

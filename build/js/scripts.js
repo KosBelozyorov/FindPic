@@ -82,7 +82,8 @@ var refsModal = {
   grid: document.querySelector('.search-answer'),
   pageHeader: document.querySelector('.page-header'),
   siteLogo: document.querySelector('.site-logo'),
-  popUp: document.querySelector('.pop-up')
+  popUp: document.querySelector('.pop-up'),
+  addToFav: document.querySelector('.add-to-fav')
 };
 
 function popUpClose(e) {
@@ -146,40 +147,41 @@ function popUpOpen(event) {
 
 refsModal.list.addEventListener('click', popUpOpen, true);
 refsModal.close.addEventListener('click', popUpClose);
-refsModal.popUp.addEventListener('click', popUpClose); // refsModal.list.addEventListener('click', handleBtnClick,true);
-// ================================
+refsModal.popUp.addEventListener('click', popUpClose); // ================================
 
-var array = []; // function handleBtnClick(evt) {
-//   evt.preventDefault();
-//
-//   const value = evt.target.src ;
-//   array.push(value);
-// }
-
+var array = [];
 refsModal.favorite.addEventListener('click', handleFavoriteBtnClick);
 refsModal.select.addEventListener('click', handleSelectBtnClick, true);
 
 function handleSelectBtnClick() {
-  var value = refsModal.img.src; // console.log(value);
-
+  var value = refsModal.img.src;
   array.push(value);
   localStorage.setItem('images', JSON.stringify(array));
+  refsModal.addToFav.classList.remove('add-to-fav');
+  refsModal.addToFav.classList.add('add-to-fav__active');
+
+  function popUpSelectBtnClick() {
+    refsModal.addToFav.classList.remove('add-to-fav__active');
+    refsModal.addToFav.classList.add('add-to-fav');
+  }
+
+  var timerId = setTimeout(popUpSelectBtnClick, 2000);
 }
 
 function handleFavoriteBtnClick() {
-  refsModal.grid.innerHTML = '';
+  refsModal.list.innerHTML = '';
   refsModal.page.classList.remove('show-btn');
   refsModal.pageHeader.classList.remove('page-header');
   refsModal.pageHeader.classList.add('is-active');
   refsModal.siteLogo.classList.remove('site-logo');
   refsModal.siteLogo.classList.add('is-click');
   var header = "<h2 class=\"site-favorite__link\">\u0418\u0437\u0431\u0440\u0430\u043D\u043D\u043E\u0435</h2>";
-  refsModal.grid.insertAdjacentHTML('beforeend', header);
+  refsModal.list.insertAdjacentHTML('beforeend', header);
   var arrayImg = JSON.parse(localStorage.getItem('images'));
   var elem = arrayImg.reduce(function (markup, img) {
     return markup + "<div class=\"search-answer__image\"><img src=\"".concat(img, "\" alt=\"\">\n<button class=\"btn_remove\"></button></div>");
   }, '');
-  refsModal.grid.insertAdjacentHTML('beforeend', elem);
+  refsModal.list.insertAdjacentHTML('beforeend', elem);
 }
 
 refsModal.list.addEventListener('click', handleDeleteImage);
@@ -196,13 +198,10 @@ function handleDeleteImage(event) {
 }
 
 function removeFromLocalStorage(url) {
-  console.log(url);
   var imgArr = JSON.parse(localStorage.getItem('images'));
-  console.log(imgArr.length);
   var imgToDelete = imgArr.filter(function (el) {
     return el === url;
   });
-  console.log(imgToDelete);
   imgArr.splice(imgArr.indexOf(imgToDelete), 1);
   localStorage.setItem('images', JSON.stringify(imgArr));
 }

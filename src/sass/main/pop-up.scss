@@ -98,3 +98,24 @@ body:not(.pop-up_active) .pop-up__img {
   outline: 0;
   cursor: pointer;
 }
+
+.add-to-fav {
+  display: none;
+
+
+  &__active {
+    display: block;
+    padding: 10px;
+    background: #ffffffb3;
+    position: absolute;
+    top: 48%;
+    left: 38%;
+    right: 38%;
+    border: 2px solid $primary-violet-color;
+    border-radius: 22px;
+    font-family: 'Roboto', sans-serif;
+    color: $primary-violet-color;
+    font-weight: 700;
+    text-align: center;
+  }
+}
