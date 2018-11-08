@@ -74,20 +74,23 @@ function popUpOpen(event) {
 refsModal.list.addEventListener('click', popUpOpen,true);
 refsModal.close.addEventListener('click', popUpClose);
 refsModal.popUp.addEventListener('click', popUpClose);
-refsModal.list.addEventListener('click', handleBtnClick,true);
+// refsModal.list.addEventListener('click', handleBtnClick,true);
 // ================================
 const array = [];
-function handleBtnClick(evt) {
-  evt.preventDefault();
-
-  const value = evt.target.src ;
-  array.push(value);
-}
+// function handleBtnClick(evt) {
+//   evt.preventDefault();
+//
+//   const value = evt.target.src ;
+//   array.push(value);
+// }
 
 refsModal.favorite.addEventListener('click', handleFavoriteBtnClick);
-refsModal.select.addEventListener('click',  handleSelectBtnClick);
+refsModal.select.addEventListener('click',  handleSelectBtnClick, true);
 
 function handleSelectBtnClick() {
+  const value = refsModal.img.src;
+  // console.log(value);
+  array.push(value);
   localStorage.setItem('images', JSON.stringify(array));
 }
 
@@ -101,7 +104,7 @@ function handleFavoriteBtnClick() {
   refsModal.siteLogo.classList.add('is-click');
 
   const header = `<h2 class="site-favorite__link">Избранное</h2>`;
-  refsModal.grid.insertAdjacentHTML('beforeend',header);
+  refsModal.grid.insertAdjacentHTML('beforeend', header);
   const arrayImg = JSON.parse(localStorage.getItem('images'));
   const elem = arrayImg.reduce((markup, img) => markup + `<div class="search-answer__image"><img src="${img}" alt="">
 <button class="btn_remove"></button></div>`,
@@ -117,14 +120,17 @@ function handleDeleteImage(event){
   if(nodeName === 'BUTTON'){
     const parent = event.target.parentNode;
     parent.remove();
+    const targetToDel = parent.firstChild.src;
+    removeFromLocalStorage(targetToDel);
   }
-
-  removeFromLocalStorage();
-
 }
-function removeFromLocalStorage(id){
+
+function removeFromLocalStorage(url){
+  console.log(url);
   const imgArr = JSON.parse(localStorage.getItem('images'));
-  const imgToDelete = imgArr.filter(el => el.url === id)[0];
+  console.log(imgArr.length);
+  const imgToDelete = imgArr.filter(el => el === url);
+  console.log(imgToDelete);
   imgArr.splice(imgArr.indexOf(imgToDelete), 1);
   localStorage.setItem('images', JSON.stringify(imgArr));
 }

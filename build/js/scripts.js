@@ -146,21 +146,23 @@ function popUpOpen(event) {
 
 refsModal.list.addEventListener('click', popUpOpen, true);
 refsModal.close.addEventListener('click', popUpClose);
-refsModal.popUp.addEventListener('click', popUpClose);
-refsModal.list.addEventListener('click', handleBtnClick, true); // ================================
+refsModal.popUp.addEventListener('click', popUpClose); // refsModal.list.addEventListener('click', handleBtnClick,true);
+// ================================
 
-var array = [];
-
-function handleBtnClick(evt) {
-  evt.preventDefault();
-  var value = evt.target.src;
-  array.push(value);
-}
+var array = []; // function handleBtnClick(evt) {
+//   evt.preventDefault();
+//
+//   const value = evt.target.src ;
+//   array.push(value);
+// }
 
 refsModal.favorite.addEventListener('click', handleFavoriteBtnClick);
-refsModal.select.addEventListener('click', handleSelectBtnClick);
+refsModal.select.addEventListener('click', handleSelectBtnClick, true);
 
 function handleSelectBtnClick() {
+  var value = refsModal.img.src; // console.log(value);
+
+  array.push(value);
   localStorage.setItem('images', JSON.stringify(array));
 }
 
@@ -188,16 +190,19 @@ function handleDeleteImage(event) {
   if (nodeName === 'BUTTON') {
     var parent = event.target.parentNode;
     parent.remove();
+    var targetToDel = parent.firstChild.src;
+    removeFromLocalStorage(targetToDel);
   }
-
-  removeFromLocalStorage();
 }
 
-function removeFromLocalStorage(id) {
+function removeFromLocalStorage(url) {
+  console.log(url);
   var imgArr = JSON.parse(localStorage.getItem('images'));
+  console.log(imgArr.length);
   var imgToDelete = imgArr.filter(function (el) {
-    return el.url === id;
-  })[0];
+    return el === url;
+  });
+  console.log(imgToDelete);
   imgArr.splice(imgArr.indexOf(imgToDelete), 1);
   localStorage.setItem('images', JSON.stringify(imgArr));
 }
