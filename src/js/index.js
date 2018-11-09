@@ -75,6 +75,7 @@ function loadPhotos() {
 
 //=================================================
 function loadMainPage() {
+  refsModal.favoriteTitle.innerHTML = '';
   refs.grid.innerHTML = '';
   refs.page.classList.remove('show-btn');
   refsModal.pageHeader.classList.remove('is-active');

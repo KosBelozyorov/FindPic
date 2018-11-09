@@ -61,6 +61,7 @@ function loadPhotos() {
 
 
 function loadMainPage() {
+  refsModal.favoriteTitle.innerHTML = '';
   refs.grid.innerHTML = '';
   refs.page.classList.remove('show-btn');
   refsModal.pageHeader.classList.remove('is-active');
@@ -176,6 +177,7 @@ function handleSelectBtnClick() {
 }
 
 function handleFavoriteBtnClick() {
+  refsModal.favoriteTitle.innerHTML = '';
   refsModal.list.innerHTML = '';
   refsModal.page.classList.remove('show-btn');
   refsModal.pageHeader.classList.remove('page-header');
