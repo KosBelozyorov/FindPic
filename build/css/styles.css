@@ -445,7 +445,7 @@ template {
   margin-top: 48px;
 }
 
-.main-container .favorite-title .site-favorite__link {
+.favorite-title .site-favorite__link {
   color: #673ab7;
   font-family: 'Roboto', sans-serif;
   font-size: 16px;
@@ -453,7 +453,7 @@ template {
   width: 100%;
   text-align: left;
   margin-bottom: 15px;
-  margin-right: 22px;
+  margin-left: 22px;
 }
 
 .search-form__input {
@@ -680,10 +680,6 @@ body:not(.pop-up_active) .pop-up__img {
     flex-direction: column;
   }
 
-  .main-container .favorite-title .site-favorite__link {
-    text-align: center;
-  }
-
   .search-answer__image {
     width: 209px;
     height: 122px;
@@ -797,6 +793,11 @@ body:not(.pop-up_active) .pop-up__img {
 @media only screen and (min-width: 320px) and (max-width: 767px) {
   .page-header .site-favorite {
     margin: 0 auto;
+  }
+
+  .favorite-title .site-favorite__link {
+    text-align: center;
+    width: 280px;
   }
 }
 
