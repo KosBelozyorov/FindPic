@@ -2,6 +2,7 @@
 
 var refs = {
   form: document.querySelector('.form'),
+  loadMore: document.querySelector('.search-load-more'),
   loadMoreBtn: document.querySelector('.search-load-more__btn'),
   input: document.querySelector('.search-form__input'),
   grid: document.querySelector('.search-answer'),
@@ -59,11 +60,16 @@ function loadPhotos() {
 } //=================================================
 
 
-refs.mainPage.addEventListener('click', loadMainPage);
+function loadMainPage() {
+  refs.grid.innerHTML = '';
+  refs.page.classList.remove('show-btn');
+  refsModal.pageHeader.classList.remove('is-active');
+  refsModal.pageHeader.classList.add('page-header');
+  refsModal.siteLogo.classList.remove('is-click');
+  refsModal.siteLogo.classList.add('site-logo');
+}
 
-var loadMainPage = function loadMainPage() {
-  return refsModal.page.classList.remove('search-answer');
-};
+refs.mainPage.addEventListener('click', loadMainPage);
 "use strict";
 
 var refsModal = {
@@ -83,7 +89,8 @@ var refsModal = {
   pageHeader: document.querySelector('.page-header'),
   siteLogo: document.querySelector('.site-logo'),
   popUp: document.querySelector('.pop-up'),
-  addToFav: document.querySelector('.add-to-fav')
+  addToFav: document.querySelector('.add-to-fav'),
+  favoriteTitle: document.querySelector('.favorite-title')
 };
 
 function popUpClose(e) {
@@ -176,7 +183,7 @@ function handleFavoriteBtnClick() {
   refsModal.siteLogo.classList.remove('site-logo');
   refsModal.siteLogo.classList.add('is-click');
   var header = "<h2 class=\"site-favorite__link\">\u0418\u0437\u0431\u0440\u0430\u043D\u043D\u043E\u0435</h2>";
-  refsModal.list.insertAdjacentHTML('beforeend', header);
+  refsModal.favoriteTitle.insertAdjacentHTML('beforeend', header);
   var arrayImg = JSON.parse(localStorage.getItem('images'));
   var elem = arrayImg.reduce(function (markup, img) {
     return markup + "<div class=\"search-answer__image\"><img src=\"".concat(img, "\" alt=\"\">\n<button class=\"btn_remove\"></button></div>");

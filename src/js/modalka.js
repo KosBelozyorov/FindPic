@@ -15,7 +15,8 @@ const refsModal = {
   pageHeader: document.querySelector('.page-header'),
   siteLogo: document.querySelector('.site-logo'),
   popUp: document.querySelector('.pop-up'),
-  addToFav: document.querySelector('.add-to-fav')
+  addToFav: document.querySelector('.add-to-fav'),
+  favoriteTitle: document.querySelector('.favorite-title')
 };
 
 
@@ -104,7 +105,7 @@ function handleFavoriteBtnClick() {
   refsModal.siteLogo.classList.add('is-click');
 
   const header = `<h2 class="site-favorite__link">Избранное</h2>`;
-  refsModal.list.insertAdjacentHTML('beforeend', header);
+  refsModal.favoriteTitle.insertAdjacentHTML('beforeend', header);
   const arrayImg = JSON.parse(localStorage.getItem('images'));
   const elem = arrayImg.reduce((markup, img) => markup + `<div class="search-answer__image"><img src="${img}" alt="">
 <button class="btn_remove"></button></div>`,
