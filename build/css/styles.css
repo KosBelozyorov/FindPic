@@ -847,8 +847,8 @@ body:not(.pop-up_active) .pop-up__img {
   }
 
   .add-to-fav__active {
-    top: 48%;
-    left: 38%;
+    top: 40%;
+    left: 33%;
   }
 }
 
