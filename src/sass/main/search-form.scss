@@ -1,0 +1,28 @@
+.search-form__input{
+    width: 310px;
+    height: 26px;
+    border-radius: 13px;
+    color: $button-text-color;
+    border: 2px solid $button-border-color;
+    padding-left: 15px;
+    margin-bottom: 31px;
+    outline: 0;
+
+    @media(max-width: 767px ){
+      width: 280px;
+    }
+
+    @media(min-width: 768px ){
+        width: 380px;
+    }
+
+    @media(min-width: 1024px){
+        width: 450px;
+    }
+}
+
+.search-form__input[placeholder] {
+  color: $placeholder-text-color;
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+}
