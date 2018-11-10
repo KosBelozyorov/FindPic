@@ -412,6 +412,11 @@ template {
 
 /*header*/
 
+.page-header {
+  display: flex;
+  flex-direction: column;
+}
+
 .page-header .site-favorite {
   font-family: 'Roboto', sans-serif;
   font-size: 16px;
@@ -477,13 +482,19 @@ template {
 
 .is-active {
   display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
+  flex-direction: column;
   padding-top: 32px;
   order: 1;
 }
 
+.is-active img {
+  display: block;
+  margin: 0 auto;
+}
+
 .is-active .site-favorite {
+  margin: 0 auto;
+  padding-top: 34px;
   width: 110px;
 }
 
@@ -507,7 +518,6 @@ template {
 }
 
 .is-click {
-  margin-right: 200px;
   cursor: pointer;
 }
 
@@ -717,6 +727,9 @@ body:not(.pop-up_active) .pop-up__img {
   color: #673ab7;
   font-weight: 700;
   text-align: center;
+  width: 200px;
+  top: 30%;
+  left: 10%;
 }
 
 @media (min-width: 320px) {
@@ -725,21 +738,38 @@ body:not(.pop-up_active) .pop-up__img {
     margin-bottom: 34px;
   }
 
-  .page-header {
-    display: flex;
-    flex-direction: column;
-  }
-
   .search-answer__image {
     width: 209px;
     height: 122px;
   }
 
+  .pop-up__wrapper {
+    width: 280px;
+    height: 44%;
+  }
+}
+
+@media (min-width: 480px) {
+  .pop-up__wrapper {
+    width: 400px;
+    height: 248px;
+  }
+
   .add-to-fav__active {
-    width: 200px;
     top: 30%;
-    left: 10%;
-    right: 10%;
+    left: 25%;
+  }
+}
+
+@media (min-width: 640px) {
+  .pop-up__wrapper {
+    width: 500px;
+    height: 304px;
+  }
+
+  .add-to-fav__active {
+    top: 35%;
+    left: 30%;
   }
 }
 
@@ -792,6 +822,21 @@ body:not(.pop-up_active) .pop-up__img {
     width: 450px;
   }
 
+  .is-active {
+    flex-direction: row;
+    justify-content: flex-end;
+    padding-top: 32px;
+  }
+
+  .is-active .site-favorite {
+    margin: 0;
+    padding: 0;
+  }
+
+  .is-click {
+    margin-right: 200px;
+  }
+
   .search-answer__image {
     width: 209px;
     height: 122px;
@@ -804,7 +849,6 @@ body:not(.pop-up_active) .pop-up__img {
   .add-to-fav__active {
     top: 48%;
     left: 38%;
-    right: 38%;
   }
 }
 
@@ -827,11 +871,6 @@ body:not(.pop-up_active) .pop-up__img {
   .search-form__input {
     width: 280px;
   }
-
-  .pop-up__wrapper {
-    width: 280px;
-    height: 44%;
-  }
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
@@ -853,9 +892,7 @@ body:not(.pop-up_active) .pop-up__img {
 
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
   .add-to-fav__active {
-    width: 200px;
     top: 40%;
     left: 35%;
-    right: 35%;
   }
 }

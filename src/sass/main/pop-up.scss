@@ -24,9 +24,19 @@
   height: 70%;
   position: relative;
 
-  @media(max-width: 767px ){
+  @media(min-width: 320px ){
     width: 280px;
     height: 44%;
+  }
+
+  @media(min-width: 480px ){
+    width: 400px;
+    height: 248px;
+  }
+
+  @media(min-width: 640px ){
+    width: 500px;
+    height: 304px;
   }
 
   @media(min-width: 768px ){
@@ -123,25 +133,28 @@ body:not(.pop-up_active) .pop-up__img {
     color: $primary-violet-color;
     font-weight: 700;
     text-align: center;
+    width: 200px;
+    top: 30%;
+    left: 10%;
 
-    @media(min-width: 320px) {
-      width: 200px;
+    @media(min-width: 480px) {
       top: 30%;
-      left: 10%;
-      right: 10%;
+      left: 25%;
+    }
+
+    @media(min-width: 640px) {
+      top: 35%;
+      left: 30%;
     }
 
     @media only screen and (min-width: 768px) and (max-width: 1023px) {
-      width: 200px;
       top: 40%;
       left: 35%;
-      right: 35%;
     }
 
     @media(min-width: 1024px) {
       top: 48%;
       left: 38%;
-      right: 38%;
     }
   }
 }

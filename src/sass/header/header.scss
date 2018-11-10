@@ -1,4 +1,6 @@
 .page-header {
+  display: flex;
+  flex-direction: column;
 
   .site-favorite{
     font-family: 'Roboto', sans-serif;
@@ -43,11 +45,6 @@
       margin-top: 115px;
       margin-bottom: 34px;
     }
-  }
-
-  @media(min-width: 320px) {
-    display: flex;
-    flex-direction: column;
   }
 
   @media(min-width: 768px) {
