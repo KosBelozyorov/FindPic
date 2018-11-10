@@ -188,7 +188,7 @@ function handleFavoriteBtnClick() {
   refsModal.favoriteTitle.insertAdjacentHTML('beforeend', header);
   var arrayImg = JSON.parse(localStorage.getItem('images'));
   var elem = arrayImg.reduce(function (markup, img) {
-    return markup + "<div class=\"search-answer__image\"><img src=\"".concat(img, "\" alt=\"\">\n<button class=\"btn_remove\"></button></div>");
+    return markup + "<div class=\"search-answer__image\"><img src=\"".concat(img, "\" alt=\"\">\n<button class=\"btn_remove\"></button><span class=\"tooltip\">\u0423\u0434\u0430\u043B\u0438\u0442\u044C</span></div>");
   }, '');
   refsModal.list.insertAdjacentHTML('beforeend', elem);
 }

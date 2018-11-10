@@ -109,7 +109,7 @@ function handleFavoriteBtnClick() {
 
   const arrayImg = JSON.parse(localStorage.getItem('images'));
   const elem = arrayImg.reduce((markup, img) => markup + `<div class="search-answer__image"><img src="${img}" alt="">
-<button class="btn_remove"></button></div>`,
+<button class="btn_remove"></button><span class="tooltip">Удалить</span></div>`,
     '',);
   refsModal.list.insertAdjacentHTML('beforeend',elem);
 }

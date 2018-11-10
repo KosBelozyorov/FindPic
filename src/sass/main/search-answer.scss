@@ -36,8 +36,6 @@
       margin-right: 15px;
     }
   }
-
-
   &:hover {
     cursor: pointer;
   }
@@ -53,16 +51,45 @@
 }
 
 .btn_remove{
-  width: 10px;
-  height: 10px;
+  width: 20px;
+  height: 20px;
   position: absolute;
-  background: transparent url(../images/close.png);
+  background: $primary-violet-color url(../images/close.png) no-repeat center center;
   outline: 0;
   border: 0;
+  border-radius: 5px;
+  top: 5px;
   right: 5px;
   visibility: hidden;
   transition: transform .2s linear;
+
+  &:after {
+    display: none;
+    content: 'Удалить';
+    position: absolute;
+    top: -32px;
+    right: 19px;
+    max-width: 200px;
+    z-index: 1;
+    padding: 5px;
+    background: $primary-text-color;
+    color: $primary-violet-color;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    border-radius: 22px 22px 0 22px;
+    border: 2px solid $primary-violet-color;
+  }
+
+  &:hover:after {
+    display: block;
+  }
+
+
 }
-.search-answer:hover .btn_remove {
+
+
+
+.search-answer__image:hover .btn_remove {
   visibility: visible;
+  cursor: pointer;
 }
