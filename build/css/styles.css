@@ -469,6 +469,12 @@ template {
   outline: 0;
 }
 
+.search-form__input[placeholder] {
+  color: #6d6e71;
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+}
+
 .is-active {
   display: flex;
   flex-direction: row;
