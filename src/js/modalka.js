@@ -19,6 +19,7 @@ const refsModal = {
   favoriteTitle: document.querySelector('.favorite-title')
 };
 
+let imgCount = 0;
 
 function popUpClose(e) {
   if (e.target == refsModal.popUp || e.target == refsModal.close) {
@@ -93,6 +94,8 @@ function handleSelectBtnClick() {
     refsModal.addToFav.classList.add('add-to-fav');
   }
   const timerId = setTimeout(popUpSelectBtnClick, 2000);
+  imgCount = imgCount +1;
+  return imgCount;
 }
 
 function handleFavoriteBtnClick() {
@@ -104,10 +107,11 @@ function handleFavoriteBtnClick() {
   refsModal.siteLogo.classList.remove('site-logo');
   refsModal.siteLogo.classList.add('is-click');
 
-  const header = `<h2 class="site-favorite__link">Избранное</h2>`;
-  refsModal.favoriteTitle.insertAdjacentHTML('beforeend', header);
+
 
   const arrayImg = JSON.parse(localStorage.getItem('images'));
+  const header = `<h2 class="site-favorite__link">Избранное (${imgCount})</h2>`;
+  refsModal.favoriteTitle.insertAdjacentHTML('beforeend', header);
   const elem = arrayImg.reduce((markup, img) => markup + `<div class="search-answer__image"><img src="${img}" alt="">
 <button class="btn_remove"></button></div>`,
     '',);
@@ -124,7 +128,10 @@ function handleDeleteImage(event){
     parent.remove();
     const targetToDel = parent.firstChild.src;
     removeFromLocalStorage(targetToDel);
+    imgCount = imgCount - 1;
+    handleFavoriteBtnClick();
   }
+  return imgCount;
 }
 
 function removeFromLocalStorage(url){

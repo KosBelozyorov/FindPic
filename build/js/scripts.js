@@ -93,6 +93,7 @@ var refsModal = {
   addToFav: document.querySelector('.add-to-fav'),
   favoriteTitle: document.querySelector('.favorite-title')
 };
+var imgCount = 0;
 
 function popUpClose(e) {
   if (e.target == refsModal.popUp || e.target == refsModal.close) {
@@ -174,6 +175,8 @@ function handleSelectBtnClick() {
   }
 
   var timerId = setTimeout(popUpSelectBtnClick, 2000);
+  imgCount = imgCount + 1;
+  return imgCount;
 }
 
 function handleFavoriteBtnClick() {
@@ -184,9 +187,9 @@ function handleFavoriteBtnClick() {
   refsModal.pageHeader.classList.add('is-active');
   refsModal.siteLogo.classList.remove('site-logo');
   refsModal.siteLogo.classList.add('is-click');
-  var header = "<h2 class=\"site-favorite__link\">\u0418\u0437\u0431\u0440\u0430\u043D\u043D\u043E\u0435</h2>";
-  refsModal.favoriteTitle.insertAdjacentHTML('beforeend', header);
   var arrayImg = JSON.parse(localStorage.getItem('images'));
+  var header = "<h2 class=\"site-favorite__link\">\u0418\u0437\u0431\u0440\u0430\u043D\u043D\u043E\u0435 (".concat(imgCount, ")</h2>");
+  refsModal.favoriteTitle.insertAdjacentHTML('beforeend', header);
   var elem = arrayImg.reduce(function (markup, img) {
     return markup + "<div class=\"search-answer__image\"><img src=\"".concat(img, "\" alt=\"\">\n<button class=\"btn_remove\"></button></div>");
   }, '');
@@ -203,7 +206,11 @@ function handleDeleteImage(event) {
     parent.remove();
     var targetToDel = parent.firstChild.src;
     removeFromLocalStorage(targetToDel);
+    imgCount = imgCount - 1;
+    handleFavoriteBtnClick();
   }
+
+  return imgCount;
 }
 
 function removeFromLocalStorage(url) {
