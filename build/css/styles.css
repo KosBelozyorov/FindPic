@@ -1,3 +1,5 @@
+@charset "UTF-8";
+
 /*import partials below*/
 
 @font-face {
@@ -410,21 +412,19 @@ template {
 
 /*header*/
 
-.site-favorite {
+.page-header .site-favorite {
   font-family: 'Roboto', sans-serif;
   font-size: 16px;
-  text-align: right;
   -webkit-transform: scaleX(1.0002);
   transform: scaleX(1.0002);
-  margin-top: 34px;
 }
 
-.site-favorite__link {
+.page-header .site-favorite__link {
   color: #673ab7;
   text-decoration: none;
 }
 
-.site-favorite:before {
+.page-header .site-favorite:before {
   content: "\2605";
   color: #673ab7;
   display: inline-block;
@@ -435,9 +435,8 @@ template {
   margin-right: 11px;
 }
 
-.site-logo {
+.page-header .site-logo {
   text-align: center;
-  margin-top: 115px;
   cursor: pointer;
 }
 
@@ -448,6 +447,17 @@ template {
   margin-top: 48px;
 }
 
+.favorite-title .site-favorite__link {
+  color: #673ab7;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  width: 100%;
+  text-align: left;
+  margin-bottom: 15px;
+  margin-left: 22px;
+}
+
 .search-form__input {
   width: 310px;
   height: 26px;
@@ -456,20 +466,42 @@ template {
   border: 2px solid #adafb2;
   padding-left: 15px;
   margin-bottom: 31px;
-  outline: 0px;
+  outline: 0;
 }
 
 .is-active {
-  text-align: center;
-  margin-top: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding-top: 32px;
   order: 1;
 }
 
+.is-active .site-favorite {
+  width: 110px;
+}
+
+.is-active .site-favorite__link {
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  color: #673ab7;
+  text-decoration: none;
+  text-align: center;
+}
+
+.is-active .site-favorite:before {
+  content: "\2605";
+  color: #673ab7;
+  display: inline-block;
+  -webkit-transform: scale(1.3, 1.3);
+  transform: scale(1.3, 1.3);
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+}
+
 .is-click {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  flex-wrap: wrap;
+  margin-right: 200px;
   cursor: pointer;
 }
 
@@ -489,14 +521,8 @@ template {
 
 .search-answer__image {
   background: #231f20;
-  width: 209px;
-  height: 122px;
   position: relative;
   margin-bottom: 15px;
-}
-
-.search-answer__image:not(:nth-child(4n)) {
-  margin-right: 15px;
 }
 
 .search-answer__image:hover {
@@ -509,12 +535,14 @@ template {
 }
 
 .btn_remove {
-  width: 10px;
-  height: 10px;
+  width: 20px;
+  height: 20px;
   position: absolute;
-  background: transparent url(../images/close.png);
+  background: #673ab7 url(../images/close.png) no-repeat center center;
   outline: 0;
   border: 0;
+  border-radius: 5px;
+  top: 5px;
   right: 5px;
   visibility: hidden;
   transition: -webkit-transform .2s linear;
@@ -522,17 +550,30 @@ template {
   transition: transform .2s linear, -webkit-transform .2s linear;
 }
 
-.search-answer:hover .btn_remove {
-  visibility: visible;
+.btn_remove:after {
+  display: none;
+  content: 'Удалить';
+  position: absolute;
+  top: -32px;
+  right: 19px;
+  max-width: 200px;
+  z-index: 1;
+  padding: 5px;
+  background: #ffffff;
+  color: #673ab7;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  border-radius: 22px 22px 0 22px;
+  border: 2px solid #673ab7;
 }
 
-.search-answer > h2 {
-  width: 100%;
-  text-align: left;
-  margin-bottom: 15px;
-  font-size: 16px;
-  font-weight: normal;
-  font-family: 'Roboto', sans-serif;
+.btn_remove:hover:after {
+  display: block;
+}
+
+.search-answer__image:hover .btn_remove {
+  visibility: visible;
+  cursor: pointer;
 }
 
 .search-form__btn {
@@ -655,10 +696,77 @@ body:not(.pop-up_active) .pop-up__img {
   cursor: pointer;
 }
 
+.add-to-fav {
+  display: none;
+}
+
+.add-to-fav__active {
+  display: block;
+  padding: 10px;
+  background: #ffffffb3;
+  position: absolute;
+  border: 2px solid #673ab7;
+  border-radius: 22px;
+  font-family: 'Roboto', sans-serif;
+  color: #673ab7;
+  font-weight: 700;
+  text-align: center;
+}
+
+@media (min-width: 320px) {
+  .page-header .site-logo {
+    margin-top: 60px;
+    margin-bottom: 34px;
+  }
+
+  .page-header {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .search-answer__image {
+    width: 209px;
+    height: 122px;
+  }
+
+  .add-to-fav__active {
+    width: 200px;
+    top: 30%;
+    left: 10%;
+    right: 10%;
+  }
+}
+
 @media (min-width: 768px) {
+  .page-header .site-favorite {
+    margin: 0;
+    text-align: right;
+  }
+
+  .page-header .site-logo {
+    margin-top: 115px;
+    margin-bottom: 34px;
+  }
+
+  .page-header {
+    display: flex;
+    flex-direction: column-reverse;
+    box-sizing: border-box;
+    padding-top: 34px;
+  }
+
   .search-form__input {
-    width: 365px;
-    margin-right: 15px;
+    width: 380px;
+  }
+
+  .search-answer__image {
+    width: 100%;
+    height: 247px;
+  }
+
+  .pop-up__wrapper {
+    width: 640px;
+    height: 390px;
   }
 }
 
@@ -667,8 +775,41 @@ body:not(.pop-up_active) .pop-up__img {
     width: 926px;
   }
 
+  .page-header {
+    display: flex;
+    flex-direction: column-reverse;
+    box-sizing: border-box;
+    padding-top: 34px;
+  }
+
   .search-form__input {
     width: 450px;
+  }
+
+  .search-answer__image {
+    width: 209px;
+    height: 122px;
+  }
+
+  .search-answer__image:not(:nth-child(4n)) {
+    margin-right: 15px;
+  }
+
+  .add-to-fav__active {
+    top: 48%;
+    left: 38%;
+    right: 38%;
+  }
+}
+
+@media (max-width: 1023px) {
+  .search-answer {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .search-answer__image {
+    margin: 0 auto 15px;
   }
 }
 
@@ -676,10 +817,39 @@ body:not(.pop-up_active) .pop-up__img {
   body {
     width: 320px;
   }
+
+  .search-form__input {
+    width: 280px;
+  }
+
+  .pop-up__wrapper {
+    width: 280px;
+    height: 44%;
+  }
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
   body {
     width: 450px;
+  }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 767px) {
+  .page-header .site-favorite {
+    margin: 0 auto;
+  }
+
+  .favorite-title .site-favorite__link {
+    text-align: center;
+    width: 280px;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+  .add-to-fav__active {
+    width: 200px;
+    top: 40%;
+    left: 35%;
+    right: 35%;
   }
 }

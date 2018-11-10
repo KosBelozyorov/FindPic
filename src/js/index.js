@@ -1,5 +1,6 @@
 const refs = {
     form: document.querySelector('.form'),
+    loadMore: document.querySelector('.search-load-more'),
     loadMoreBtn: document.querySelector('.search-load-more__btn'),
     input: document.querySelector('.search-form__input'),
     grid: document.querySelector('.search-answer'),
@@ -73,6 +74,13 @@ function loadPhotos() {
 }
 
 //=================================================
+function loadMainPage() {
+  refsModal.favoriteTitle.innerHTML = '';
+  refs.grid.innerHTML = '';
+  refs.page.classList.remove('show-btn');
+  refsModal.pageHeader.classList.remove('is-active');
+  refsModal.pageHeader.classList.add('page-header');
+  refsModal.siteLogo.classList.remove('is-click');
+  refsModal.siteLogo.classList.add('site-logo');
+}
 refs.mainPage.addEventListener('click', loadMainPage);
-
-const loadMainPage = () => refsModal.page.classList.remove('search-answer');

@@ -2,6 +2,7 @@
 
 var refs = {
   form: document.querySelector('.form'),
+  loadMore: document.querySelector('.search-load-more'),
   loadMoreBtn: document.querySelector('.search-load-more__btn'),
   input: document.querySelector('.search-form__input'),
   grid: document.querySelector('.search-answer'),
@@ -59,11 +60,17 @@ function loadPhotos() {
 } //=================================================
 
 
-refs.mainPage.addEventListener('click', loadMainPage);
+function loadMainPage() {
+  refsModal.favoriteTitle.innerHTML = '';
+  refs.grid.innerHTML = '';
+  refs.page.classList.remove('show-btn');
+  refsModal.pageHeader.classList.remove('is-active');
+  refsModal.pageHeader.classList.add('page-header');
+  refsModal.siteLogo.classList.remove('is-click');
+  refsModal.siteLogo.classList.add('site-logo');
+}
 
-var loadMainPage = function loadMainPage() {
-  return refsModal.page.classList.remove('search-answer');
-};
+refs.mainPage.addEventListener('click', loadMainPage);
 "use strict";
 
 var refsModal = {
@@ -82,7 +89,9 @@ var refsModal = {
   grid: document.querySelector('.search-answer'),
   pageHeader: document.querySelector('.page-header'),
   siteLogo: document.querySelector('.site-logo'),
-  popUp: document.querySelector('.pop-up')
+  popUp: document.querySelector('.pop-up'),
+  addToFav: document.querySelector('.add-to-fav'),
+  favoriteTitle: document.querySelector('.favorite-title')
 };
 
 function popUpClose(e) {
@@ -104,6 +113,7 @@ function popUpOpen(event) {
 
   var targetImg = ls[targetId];
   var popupImageSrc = refsModal.img;
+  if (targetImg === undefined) return;
   popupImageSrc.src = targetImg.src;
 
   function popUpNext() {
@@ -145,38 +155,42 @@ function popUpOpen(event) {
 
 refsModal.list.addEventListener('click', popUpOpen, true);
 refsModal.close.addEventListener('click', popUpClose);
-refsModal.popUp.addEventListener('click', popUpClose);
-refsModal.list.addEventListener('click', handleBtnClick, true); // ================================
+refsModal.popUp.addEventListener('click', popUpClose); // ================================
 
 var array = [];
-
-function handleBtnClick(evt) {
-  evt.preventDefault();
-  var value = evt.target.src;
-  array.push(value);
-}
-
 refsModal.favorite.addEventListener('click', handleFavoriteBtnClick);
-refsModal.select.addEventListener('click', handleSelectBtnClick);
+refsModal.select.addEventListener('click', handleSelectBtnClick, true);
 
 function handleSelectBtnClick() {
+  var value = refsModal.img.src;
+  array.push(value);
   localStorage.setItem('images', JSON.stringify(array));
+  refsModal.addToFav.classList.remove('add-to-fav');
+  refsModal.addToFav.classList.add('add-to-fav__active');
+
+  function popUpSelectBtnClick() {
+    refsModal.addToFav.classList.remove('add-to-fav__active');
+    refsModal.addToFav.classList.add('add-to-fav');
+  }
+
+  var timerId = setTimeout(popUpSelectBtnClick, 2000);
 }
 
 function handleFavoriteBtnClick() {
-  refsModal.grid.innerHTML = '';
+  refsModal.favoriteTitle.innerHTML = '';
+  refsModal.list.innerHTML = '';
   refsModal.page.classList.remove('show-btn');
   refsModal.pageHeader.classList.remove('page-header');
   refsModal.pageHeader.classList.add('is-active');
   refsModal.siteLogo.classList.remove('site-logo');
   refsModal.siteLogo.classList.add('is-click');
   var header = "<h2 class=\"site-favorite__link\">\u0418\u0437\u0431\u0440\u0430\u043D\u043D\u043E\u0435</h2>";
-  refsModal.grid.insertAdjacentHTML('beforeend', header);
+  refsModal.favoriteTitle.insertAdjacentHTML('beforeend', header);
   var arrayImg = JSON.parse(localStorage.getItem('images'));
   var elem = arrayImg.reduce(function (markup, img) {
     return markup + "<div class=\"search-answer__image\"><img src=\"".concat(img, "\" alt=\"\">\n<button class=\"btn_remove\"></button></div>");
   }, '');
-  refsModal.grid.insertAdjacentHTML('beforeend', elem);
+  refsModal.list.insertAdjacentHTML('beforeend', elem);
 }
 
 refsModal.list.addEventListener('click', handleDeleteImage);
@@ -187,16 +201,16 @@ function handleDeleteImage(event) {
   if (nodeName === 'BUTTON') {
     var parent = event.target.parentNode;
     parent.remove();
+    var targetToDel = parent.firstChild.src;
+    removeFromLocalStorage(targetToDel);
   }
-
-  removeFromLocalStorage();
 }
 
-function removeFromLocalStorage(id) {
+function removeFromLocalStorage(url) {
   var imgArr = JSON.parse(localStorage.getItem('images'));
   var imgToDelete = imgArr.filter(function (el) {
-    return el.url === id;
-  })[0];
+    return el === url;
+  });
   imgArr.splice(imgArr.indexOf(imgToDelete), 1);
   localStorage.setItem('images', JSON.stringify(imgArr));
 }

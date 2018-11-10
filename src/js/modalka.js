@@ -1,7 +1,7 @@
 const refsModal = {
   page: document.querySelector("body"),
   form: document.querySelector(".form"),
-  list:  document.querySelector('.search-answer'),
+  list: document.querySelector('.search-answer'),
   img: document.querySelector(".pop-up__img"),
   btnSearch: document.querySelector(".search-form__btn"),
   delete: document.querySelector(".js-delete"),
@@ -14,7 +14,9 @@ const refsModal = {
   grid: document.querySelector('.search-answer'),
   pageHeader: document.querySelector('.page-header'),
   siteLogo: document.querySelector('.site-logo'),
-  popUp: document.querySelector('.pop-up')
+  popUp: document.querySelector('.pop-up'),
+  addToFav: document.querySelector('.add-to-fav'),
+  favoriteTitle: document.querySelector('.favorite-title')
 };
 
 
@@ -35,6 +37,7 @@ function popUpOpen(event) {
   }
   const targetImg = ls[targetId];
   const popupImageSrc = refsModal.img;
+  if(targetImg === undefined) return;
   popupImageSrc.src = targetImg.src;
 
   function popUpNext() {
@@ -73,26 +76,28 @@ function popUpOpen(event) {
 refsModal.list.addEventListener('click', popUpOpen,true);
 refsModal.close.addEventListener('click', popUpClose);
 refsModal.popUp.addEventListener('click', popUpClose);
-refsModal.list.addEventListener('click', handleBtnClick,true);
 // ================================
 const array = [];
-function handleBtnClick(evt) {
-  evt.preventDefault();
-
-  const value = evt.target.src ;
-  array.push(value);
-}
 
 refsModal.favorite.addEventListener('click', handleFavoriteBtnClick);
-refsModal.select.addEventListener('click',  handleSelectBtnClick);
+refsModal.select.addEventListener('click',  handleSelectBtnClick, true);
 
 function handleSelectBtnClick() {
+  const value = refsModal.img.src;
+  array.push(value);
   localStorage.setItem('images', JSON.stringify(array));
+  refsModal.addToFav.classList.remove('add-to-fav');
+  refsModal.addToFav.classList.add('add-to-fav__active');
+  function popUpSelectBtnClick() {
+    refsModal.addToFav.classList.remove('add-to-fav__active');
+    refsModal.addToFav.classList.add('add-to-fav');
+  }
+  const timerId = setTimeout(popUpSelectBtnClick, 2000);
 }
 
 function handleFavoriteBtnClick() {
-
-  refsModal.grid.innerHTML = '';
+  refsModal.favoriteTitle.innerHTML = '';
+  refsModal.list.innerHTML = '';
   refsModal.page.classList.remove('show-btn');
   refsModal.pageHeader.classList.remove('page-header');
   refsModal.pageHeader.classList.add('is-active');
@@ -100,12 +105,13 @@ function handleFavoriteBtnClick() {
   refsModal.siteLogo.classList.add('is-click');
 
   const header = `<h2 class="site-favorite__link">Избранное</h2>`;
-  refsModal.grid.insertAdjacentHTML('beforeend',header);
+  refsModal.favoriteTitle.insertAdjacentHTML('beforeend', header);
+
   const arrayImg = JSON.parse(localStorage.getItem('images'));
   const elem = arrayImg.reduce((markup, img) => markup + `<div class="search-answer__image"><img src="${img}" alt="">
 <button class="btn_remove"></button></div>`,
     '',);
-  refsModal.grid.insertAdjacentHTML('beforeend',elem);
+  refsModal.list.insertAdjacentHTML('beforeend',elem);
 }
 
 refsModal.list.addEventListener('click',  handleDeleteImage);
@@ -116,14 +122,14 @@ function handleDeleteImage(event){
   if(nodeName === 'BUTTON'){
     const parent = event.target.parentNode;
     parent.remove();
+    const targetToDel = parent.firstChild.src;
+    removeFromLocalStorage(targetToDel);
   }
-
-  removeFromLocalStorage();
-
 }
-function removeFromLocalStorage(id){
+
+function removeFromLocalStorage(url){
   const imgArr = JSON.parse(localStorage.getItem('images'));
-  const imgToDelete = imgArr.filter(el => el.url === id)[0];
+  const imgToDelete = imgArr.filter(el => el === url);
   imgArr.splice(imgArr.indexOf(imgToDelete), 1);
   localStorage.setItem('images', JSON.stringify(imgArr));
 }
