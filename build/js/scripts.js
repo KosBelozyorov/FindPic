@@ -9,7 +9,8 @@ var refs = {
   page: document.querySelector('.page'),
   pageHeader: document.querySelector('.page-header'),
   siteLogo: document.querySelector('.site-logo'),
-  mainPage: document.querySelector('.site-logo__link')
+  mainPage: document.querySelector('.site-logo__link'),
+  favoriteTitle: document.querySelector('.favorite-title')
 };
 var currentPage = 1;
 var currentQuery = '';
@@ -20,6 +21,7 @@ function handleFormSubmit(evt) {
   evt.preventDefault();
   currentQuery = refs.input.value;
   if (currentQuery === '') return;
+  refsModal.favoriteTitle.innerHTML = '';
   refs.pageHeader.classList.remove('page-header');
   refs.pageHeader.classList.add('is-active');
   refs.siteLogo.classList.remove('site-logo');
