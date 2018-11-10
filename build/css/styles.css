@@ -890,6 +890,12 @@ body:not(.pop-up_active) .pop-up__img {
   }
 }
 
+@media only screen and (min-width: 320px) and (max-width: 1023px) {
+  .btn_remove {
+    visibility: visible;
+  }
+}
+
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
   .add-to-fav__active {
     top: 40%;

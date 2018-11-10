@@ -84,10 +84,10 @@
     display: block;
   }
 
-
+  @media only screen and (min-width: 320px) and (max-width: 1023px) {
+    visibility: visible;
+  }
 }
-
-
 
 .search-answer__image:hover .btn_remove {
   visibility: visible;
