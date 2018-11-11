@@ -3,6 +3,10 @@
     width: 60px;
     outline: 0;
 }
+
+.search-load-more {
+  padding-bottom: 50px;
+}
 .search-load-more__btn{
     @extend %button;
     width: 130px;
@@ -12,5 +16,5 @@
 
 .page.show-btn .search-load-more__btn {
     display: block;
-    margin: 0 auto 50px;
+    margin: 0 auto;
 }
