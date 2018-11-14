@@ -29,7 +29,6 @@
   transform: scaleX(1.0002);
   border: 1px solid #cddc39;
   cursor: pointer;
-  margin-bottom: 31px;
 }
 
 * {
@@ -445,11 +444,14 @@ template {
   cursor: pointer;
 }
 
+.header {
+  padding-bottom: 48px;
+}
+
 /*main*/
 
 .main-container {
   text-align: center;
-  margin-top: 48px;
 }
 
 .favorite-title .site-favorite__link {
@@ -463,14 +465,18 @@ template {
   margin-left: 22px;
 }
 
+.search-form {
+  padding-bottom: 31px;
+}
+
 .search-form__input {
   width: 310px;
   height: 26px;
   border-radius: 13px;
   color: #c0c2c4;
   border: 2px solid #adafb2;
+  margin-bottom: 30px;
   padding-left: 15px;
-  margin-bottom: 31px;
   outline: 0;
 }
 
@@ -527,8 +533,8 @@ template {
 
 .search-answer {
   display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
+  flex-direction: column;
+  justify-content: space-between;
   flex-wrap: wrap;
   margin-bottom: 30px;
   box-sizing: border-box;
@@ -597,6 +603,10 @@ template {
   outline: 0;
 }
 
+.search-load-more {
+  padding-bottom: 50px;
+}
+
 .search-load-more__btn {
   width: 130px;
   outline: 0;
@@ -605,7 +615,7 @@ template {
 
 .page.show-btn .search-load-more__btn {
   display: block;
-  margin: 0 auto 50px;
+  margin: 0 auto;
 }
 
 .pop-up {
@@ -806,6 +816,12 @@ body:not(.pop-up_active) .pop-up__img {
   }
 }
 
+@media (min-width: 1023px) {
+  .search-answer {
+    flex-direction: row;
+  }
+}
+
 @media (min-width: 1024px) {
   body {
     width: 926px;
@@ -820,6 +836,7 @@ body:not(.pop-up_active) .pop-up__img {
 
   .search-form__input {
     width: 450px;
+    margin-bottom: 0;
   }
 
   .is-active {
@@ -842,10 +859,6 @@ body:not(.pop-up_active) .pop-up__img {
     height: 122px;
   }
 
-  .search-answer__image:not(:nth-child(4n)) {
-    margin-right: 15px;
-  }
-
   .add-to-fav__active {
     top: 40%;
     left: 33%;
@@ -853,11 +866,6 @@ body:not(.pop-up_active) .pop-up__img {
 }
 
 @media (max-width: 1023px) {
-  .search-answer {
-    display: flex;
-    flex-direction: column;
-  }
-
   .search-answer__image {
     margin: 0 auto 15px;
   }
