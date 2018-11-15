@@ -1,18 +1,19 @@
 const refs = {
-    form: document.querySelector('.form'),
-    loadMore: document.querySelector('.search-load-more'),
-    loadMoreBtn: document.querySelector('.search-load-more__btn'),
-    input: document.querySelector('.search-form__input'),
-    grid: document.querySelector('.search-answer'),
-    page: document.querySelector('.page'),
-    pageHeader: document.querySelector('.page-header'),
-    siteLogo: document.querySelector('.site-logo'),
-    mainPage: document.querySelector('.site-logo__link'),
-    favoriteTitle: document.querySelector('.favorite-title')
-  };
+  form: document.querySelector('.form'),
+  loadMore: document.querySelector('.search-load-more'),
+  loadMoreBtn: document.querySelector('.search-load-more__btn'),
+  input: document.querySelector('.search-form__input'),
+  grid: document.querySelector('.search-answer'),
+  page: document.querySelector('.page'),
+  pageHeader: document.querySelector('.page-header'),
+  siteLogo: document.querySelector('.site-logo'),
+  mainPage: document.querySelector('.site-logo__link'),
+  favoriteTitle: document.querySelector('.favorite-title'),
+  imgPerPage: 12,
+};
 
-  let currentPage = 1;
-  let currentQuery = '';
+let currentPage = 1;
+let currentQuery = '';
 
 refs.form.addEventListener('submit', handleFormSubmit);
 refs.loadMoreBtn.addEventListener('click', handleLoadMoreBtnClick);
@@ -30,6 +31,7 @@ function handleFormSubmit(evt) {
   refs.pageHeader.classList.add('is-active');
   refs.siteLogo.classList.remove('site-logo');
   refs.siteLogo.classList.add('is-click');
+  refsModal.select.classList.remove('hidden');
 
   currentPage = 1;
   refs.grid.innerHTML = '';
@@ -38,12 +40,12 @@ function handleFormSubmit(evt) {
 }
 
 function imagesRequest(query, page = 1) {
-  const url = `https://pixabay.com/api/?key=10502586-9b5f28e8ed93518550ea5da27&q=${query}&per_page=12&page=${page}`;
+  const url = `https://pixabay.com/api/?key=10502586-9b5f28e8ed93518550ea5da27&q=${query}&per_page=${refs.imgPerPage}&page=${page}`;
     return axios.get(url)
-     .then(response => response.data.hits)
+      .then(response => response.data)
       .catch(function (error) {
         console.log(error);
-    });
+      });
 }
 
 function createGridItems(items) {
@@ -57,14 +59,23 @@ function createGridItems(items) {
 
 function handleLoadMoreBtnClick() {
   currentPage += 1;
-
   loadPhotos();
 }
 
 function loadPhotos() {
 
-  imagesRequest(currentQuery, currentPage).then(photos => {
-    const markup = createGridItems(photos);
+  imagesRequest(currentQuery, currentPage).then(data => {
+    let total = data.totalHits;
+    let counter = data.hits;
+    let totalPages = Math.ceil(total / refs.imgPerPage);
+    if (currentPage === totalPages)  {
+      refs.loadMoreBtn.textContent = "Все картинки показаны";
+      refs.loadMoreBtn.disabled = true;
+    } else if (currentPage !== totalPages) {
+      refs.loadMoreBtn.disabled = false;
+      refs.loadMoreBtn.textContent = "Показать еще";
+    }
+    const markup = createGridItems(counter);
     refs.grid.insertAdjacentHTML('beforeend', markup);
     refs.page.classList.add('show-btn');
   });
@@ -80,5 +91,6 @@ function loadMainPage() {
   refsModal.pageHeader.classList.add('page-header');
   refsModal.siteLogo.classList.remove('is-click');
   refsModal.siteLogo.classList.add('site-logo');
+  refsModal.select.classList.remove('hidden');
 }
 refs.mainPage.addEventListener('click', loadMainPage);
