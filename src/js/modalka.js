@@ -105,6 +105,7 @@ function handleFavoriteBtnClick() {
   refsModal.pageHeader.classList.remove('page-header');
   refsModal.pageHeader.classList.add('is-active');
   refsModal.siteLogo.classList.remove('site-logo');
+  refsModal.select.classList.add('hidden');
   refsModal.siteLogo.classList.add('is-click');
 
 

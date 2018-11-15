@@ -1,20 +1,34 @@
 .search-form__btn{
-    @extend %button;
-    width: 60px;
-    outline: 0;
+  @extend %button;
+  width: 60px;
+  outline: 0;
+
+  &:hover {
+    border: 2px solid $button-border-color;
+  }
 }
 
 .search-load-more {
   padding-bottom: 50px;
 }
+
 .search-load-more__btn{
-    @extend %button;
-    width: 130px;
-    outline: 0;
-    display: none;
+  @extend %button;
+  min-width: 130px;
+  outline: 0;
+  display: none;
 }
 
 .page.show-btn .search-load-more__btn {
-    display: block;
-    margin: 0 auto;
+  display: block;
+  margin: 0 auto;
+
+  &:hover {
+    border: 2px solid $button-border-color;
+  }
+}
+
+.page.show-btn .search-load-more__btn[disabled] {
+  background-color: $button-border-color;
+  color: $primary-violet-color;
 }
